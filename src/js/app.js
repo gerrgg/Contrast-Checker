@@ -1,24 +1,17 @@
 import { bucketPairs } from "./aaa-checker";
 import { formatPalette } from "./share";
+import { applyResultFilters } from "./filters.js";
+
+import {
+  CHECK_SVG,
+  CHECK_SVG_FAIL,
+  defaultNumberOfInputs,
+  localStorageKey,
+  Labels,
+  ResultsLabels,
+} from "./config.js";
 
 const ContrastChecker = () => {
-  const CHECK_SVG = `
-  <svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <path d="M7.81413 0.193663C7.56662 -0.0646356 7.16473 -0.0644728 6.91675 0.193663L2.87832 4.40314L1.0834 2.53235C0.83558 2.27406 0.433845 2.27406 0.185867 2.53235C-0.0619555 2.79065 -0.0619555 3.20937 0.185867 3.46783L2.42955 5.8062C2.55346 5.93534 2.71581 6 2.87816 6C3.04051 6 3.20317 5.93551 3.32693 5.8062L7.81413 1.12914C8.06196 0.871004 8.06196 0.452124 7.81413 0.193826V0.193663Z" fill="currentColor"/>
-  </svg>
-  `;
-
-  const CHECK_SVG_FAIL = `
-  <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0.5 0.5L6.5 6.0977" stroke="currentcolor" stroke-miterlimit="10" stroke-linecap="round"/>
-    <path d="M6.5 0.5L0.5 6.0977" stroke="currentcolor" stroke-miterlimit="10" stroke-linecap="round"/>
-  </svg>
-  `;
-
-  // constants
-  const defaultNumberOfInputs = 8;
-  const localStorageKey = "contrast-checker-colors";
-
   // DOM elements
   const rootEl = document.getElementById("contrast-checker-app");
   const colorInputGrid = document.getElementById("color-picker-grid");
@@ -27,26 +20,7 @@ const ContrastChecker = () => {
   const backToPaletteButton = document.getElementById("back-to-palette-button");
   const sharePaletteButton = document.getElementById("share-pallette-button");
 
-  // labels
-  const Labels = [
-    "Color One",
-    "Color Two",
-    "Color Three",
-    "Color Four",
-    "Color Five",
-    "Color Six",
-    "Color Seven",
-    "Color Eight",
-  ];
-
-  const ResultsLabels = {
-    AAA: "Where Accessibility Shines",
-    AA: "Technically Fine",
-    FAIL: "Fails with Flair",
-  };
-
   const loadSavedColors = () => {
-    const localStorageKey = "contrast-checker-colors";
     const savedColors = localStorage.getItem(localStorageKey);
     const uniqueSavedColors = [...new Set(JSON.parse(savedColors) || [])];
     return uniqueSavedColors;
@@ -132,9 +106,16 @@ const ContrastChecker = () => {
       const bucket = buckets[key];
 
       if (bucket.length === 0) return;
+
+      const sectionGroup = document.createElement("div");
+      sectionGroup.classList.add(
+        "results-group",
+        "results-group--" + key.toLowerCase(),
+      );
+
       const heading = document.createElement("h4");
       heading.textContent = ResultsLabels?.[key] ?? key;
-      resultsGrid.appendChild(heading);
+      sectionGroup.appendChild(heading);
 
       const section = document.createElement("div");
       section.classList.add("results", "results--" + key.toLowerCase());
@@ -142,9 +123,11 @@ const ContrastChecker = () => {
       bucket.forEach((pair) => {
         const pairDiv = document.createElement("div");
         pairDiv.classList.add("result");
+
         if (key === "FAIL" && (pair.a === "#ffffff" || pair.b === "#ffffff")) {
           pairDiv.classList.add("result--white-fg");
         }
+
         pairDiv.style.setProperty("--bg", pair.b);
         pairDiv.style.setProperty("--fg", pair.a);
 
@@ -224,8 +207,11 @@ const ContrastChecker = () => {
         section.appendChild(pairDiv);
       });
 
-      resultsGrid.appendChild(section);
+      sectionGroup.appendChild(section);
+      resultsGrid.appendChild(sectionGroup);
     });
+
+    applyResultFilters();
   };
 
   // Coloris onChange event
@@ -240,7 +226,6 @@ const ContrastChecker = () => {
 
   // Initial population
   populateColorInputs(defaultNumberOfInputs);
-  populateResults();
 
   // events
   clearButton.addEventListener("click", resetColors);
@@ -252,12 +237,9 @@ const ContrastChecker = () => {
 
   sharePaletteButton.addEventListener("click", () => {
     const savedColors = loadSavedColors();
-    const paletteString = savedColors.join(", ");
     const savedColorsFormatted = formatPalette(savedColors, { format: "css" });
 
-    navigator.clipboard.writeText(savedColorsFormatted).then(() => {
-      alert("Palette copied to clipboard: \n" + savedColorsFormatted);
-    });
+    navigator.clipboard.writeText(savedColorsFormatted);
   });
 };
 

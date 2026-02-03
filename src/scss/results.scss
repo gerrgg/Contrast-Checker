@@ -4,6 +4,15 @@
   h4 {
     margin-bottom: 30px;
   }
+
+  .results-group {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+
   .results {
     grid-template-columns: repeat(6, 1fr);
     display: grid;
