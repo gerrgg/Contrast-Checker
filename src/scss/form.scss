@@ -1,0 +1,49 @@
+input[data-coloris] {
+  width: 100%;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-family: var(--font-cir);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  input {
+    font-family: var(--font-cir);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 25px;
+    color: var(--color-gray);
+    border: 1px solid var(--color-gray);
+    height: 30px;
+    padding: 8px;
+    border-radius: 2px;
+
+    appearance: none;
+    outline: none;
+  }
+
+  .clr-field {
+    button {
+      height: 26px;
+      width: 26px;
+      right: 2px;
+      border-radius: 2px;
+      border: 1px solid var(--color-gray);
+    }
+  }
+
+  #searchInput {
+    padding-right: 36px;
+    color: var(--color-black);
+    border-radius: 30px;
+  }
+}

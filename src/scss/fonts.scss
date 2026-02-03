@@ -1,0 +1,86 @@
+/* src/scss/typography.scss */
+
+/* Chap */
+@font-face {
+  font-family: "Chap";
+  src:
+    url("/src/fonts/chap/Chap-Light.woff") format("woff"),
+    url("/src/fonts/chap/Chap-Light.ttf") format("truetype"),
+    url("/src/fonts/chap/Chap-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chap";
+  src:
+    url("/src/fonts/chap/Chap-Regular.woff") format("woff"),
+    url("/src/fonts/chap/Chap-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chap";
+  src:
+    url("/src/fonts/chap/Chap-Semibold.woff") format("woff"),
+    url("/src/fonts/chap/Chap-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chap";
+  src: url("/src/fonts/chap/Chap-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chap";
+  src:
+    url("/src/fonts/chap/Chap-Black.woff") format("woff"),
+    url("/src/fonts/chap/Chap-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Chap";
+  src:
+    url("/src/fonts/chap/Chap-BlackItalic.woff") format("woff"),
+    url("/src/fonts/chap/Chap-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Circular Std */
+@font-face {
+  font-family: "Circular Std";
+  src: url("/src/fonts/circular/CircularStd-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular Std";
+  src: url("/src/fonts/circular/CircularStd-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Circular Std";
+  src: url("/src/fonts/circular/CircularStd-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,95 @@
+#contrast-checker-app {
+  &.show-results {
+    .initial-view {
+      display: none;
+    }
+
+    #submitted-view {
+      display: block;
+    }
+  }
+
+  .introduction {
+    padding-bottom: 64px;
+    padding-top: 80px;
+
+    h1 {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        bottom: 4px;
+        background: var(--color-gray-light);
+        height: 1px;
+        left: 0;
+        z-index: -1;
+      }
+    }
+  }
+
+  .initial-view {
+    display: block;
+
+    .context {
+      max-width: 512px;
+      margin-bottom: 64px;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  #color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  #submitted-view {
+    display: none;
+
+    .switch-group {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    margin-top: 64px;
+
+    .filters {
+      display: flex;
+      margin-top: 15px;
+      justify-content: space-between;
+      flex-flow: row wrap;
+
+      &--left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        label {
+          font: 700 14px/18px var(--font-cir);
+        }
+      }
+
+      &--right {
+        max-width: 400px;
+        width: 100%;
+        flex: 1;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 75px;
+      gap: 50px;
+      flex-flow: row wrap;
+      padding-bottom: 150px;
+    }
+  }
+}
