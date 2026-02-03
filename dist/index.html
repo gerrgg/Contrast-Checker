@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/app.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <title>Contrast Checker</title>
+  </head>
+  <body>
+    <div id="contrast-checker-app">
+      <div class="introduction wrap">
+        <h1>Happy Eyes</h1>
+      </div>
+      <div id="initial-view" class="initial-view wrap">
+        <div class="context">
+          <h2>Let’s see if your colors play nice.</h2>
+          <p>
+            Drop in up to eight of your favorite hues and we’ll do the hard part
+            — mixing, matching, and testing every possible combo for
+            accessibility. In seconds, you’ll see which pairings pass AA and AAA
+            contrast standards, and which ones need a little extra glow-up.
+          </p>
+        </div>
+        <div id="color-picker-grid"></div>
+        <div class="actions button-group">
+          <button id="check-contrast-button" class="button button--default">
+            Show Me The Contrast
+          </button>
+          <button
+            id="reset-colors-button"
+            class="button button--default--inverse"
+          >
+            Reset Colors
+          </button>
+        </div>
+      </div>
+      <div id="submitted-view" class="submitted-view wrap">
+        <h3><strong>CONGRATS!</strong> You’re a full blown designer.</h3>
+        <div class="filters">
+          <div class="filters--left">
+            <label for="filter-contrast-level">Show Me</label>
+            <div class="switch-group">
+              <!-- expand all -->
+              <div class="button-switch">
+                <span class="switch-label">Expand All</span>
+                <label class="switch">
+                  <input type="checkbox" id="expandToggle" />
+                  <span class="slider"><i></i></span>
+                </label>
+              </div>
+
+              <!-- aa -->
+              <div class="button-switch">
+                <span class="switch-label">AA</span>
+                <label class="switch">
+                  <input type="checkbox" id="aaToggle" />
+                  <span class="slider"><i></i></span>
+                </label>
+              </div>
+
+              <!-- aaa -->
+              <div class="button-switch">
+                <span class="switch-label">AAA</span>
+                <label class="switch">
+                  <input type="checkbox" id="aaaToggle" />
+                  <span class="slider"><i></i></span>
+                </label>
+              </div>
+
+              <!-- opacity -->
+              <div class="button-switch">
+                <span class="switch-label">Opacity</span>
+                <label class="switch">
+                  <input type="checkbox" id="opacityToggle" />
+                  <span class="slider"><i></i></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filters--right">
+            <div class="field-group">
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Type here to preview text"
+              />
+            </div>
+          </div>
+        </div>
+        <div id="contrast-results-grid"></div>
+        <div class="footer">
+          <button id="back-to-palette-button" class="button button--primary">
+            Back to Palette
+          </button>
+          <button id="share-pallette-button" class="button button--text">
+            Share Palette
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>
