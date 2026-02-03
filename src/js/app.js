@@ -79,7 +79,13 @@ const ContrastChecker = () => {
   const populateColorInputs = (numInputs) => {
     for (let i = 0; i < numInputs; i++) {
       const fieldGroup = createColorInput(i);
-      Coloris({ el: fieldGroup.querySelector("input") });
+      const input = fieldGroup.querySelector("input");
+
+      input.addEventListener("focus", (e) => {
+        e.target.select();
+      });
+
+      Coloris({ el: input });
       colorInputGrid.appendChild(fieldGroup);
     }
   };
@@ -262,9 +268,9 @@ document.addEventListener("DOMContentLoaded", () => {
 Coloris({
   theme: "default",
   themeMode: "auto",
-  alpha: true,
+  alpha: false,
   format: "hex",
-  swatches: ["#ffffff", "#000000", "#5E9AD1", "#EDA124", "#50ED24", "#ED24C8"],
+  swatches: ["#ffffff", "#111010", "#5E9AD1", "#EDA124", "#50ED24", "#ED24C8"],
   focusInput: false,
 });
 
