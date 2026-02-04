@@ -1,6 +1,6 @@
 import { bucketPairs } from "./aaa-checker";
 import { formatPalette } from "./share";
-import { applyResultFilters } from "./filters.js";
+import { applyResultFilters, updateFilterAvailability } from "./filters.js";
 
 import {
   CHECK_SVG,
@@ -19,6 +19,7 @@ const ContrastChecker = () => {
   const submitButton = document.getElementById("check-contrast-button");
   const backToPaletteButton = document.getElementById("back-to-palette-button");
   const sharePaletteButton = document.getElementById("share-pallette-button");
+  const body = document.body;
 
   const loadSavedColors = () => {
     const savedColors = localStorage.getItem(localStorageKey);
@@ -204,6 +205,14 @@ const ContrastChecker = () => {
         pairDiv.appendChild(spanBorder);
         pairDiv.appendChild(details);
 
+        pairDiv.addEventListener("click", () => {
+          body.style.setProperty("--bg", pair.b);
+          body.style.setProperty("--fg", pair.a);
+          body.style.setProperty("--color-blue", pair.a);
+          body.style.setProperty("--color-black", pair.a);
+          body.style.setProperty("--color-white", pair.b);
+        });
+
         section.appendChild(pairDiv);
       });
 
@@ -211,6 +220,7 @@ const ContrastChecker = () => {
       resultsGrid.appendChild(sectionGroup);
     });
 
+    updateFilterAvailability();
     applyResultFilters();
   };
 

@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
     <title>Contrast Checker</title>
   </head>
-  <body>
+  <body style="--bg: #ffffff; --fg: #000000; --color-blue: #5e9ad1">
     <div id="contrast-checker-app">
       <div class="introduction wrap">
         <h1>Happy Eyes</h1>
@@ -46,7 +46,7 @@
             <label for="filter-contrast-level">Show Me</label>
             <div class="switch-group">
               <!-- expand all -->
-              <div class="button-switch">
+              <div class="button-switch filter--all">
                 <span class="switch-label">Expand All</span>
                 <label class="switch">
                   <input type="checkbox" id="expandToggle" />
@@ -55,7 +55,7 @@
               </div>
 
               <!-- aaa -->
-              <div class="button-switch">
+              <div class="button-switch filter--aaa">
                 <span class="switch-label">AAA</span>
                 <label class="switch">
                   <input type="checkbox" id="aaaToggle" />
@@ -64,7 +64,7 @@
               </div>
 
               <!-- aa -->
-              <div class="button-switch">
+              <div class="button-switch filter--aa">
                 <span class="switch-label">AA</span>
                 <label class="switch">
                   <input type="checkbox" id="aaToggle" />
@@ -99,7 +99,7 @@
             Back to Palette
           </button>
           <button id="share-pallette-button" class="button button--text">
-            Share Palette
+            Share The Palette
           </button>
         </div>
       </div>

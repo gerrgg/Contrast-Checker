@@ -37,7 +37,7 @@
         width: 14px;
         left: 1px;
         top: 1px;
-        background: #fff;
+        background: var(--color-white);
         border-radius: 50%;
         transition: transform 0.25s ease;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -70,4 +70,11 @@
       opacity: 0;
     }
   }
+}
+
+.filters--left {
+  display: none;
+}
+.filters--left.show {
+  display: flex;
 }

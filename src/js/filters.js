@@ -1,5 +1,57 @@
 const setVisible = (el, on) => {
-  el.classList.toggle("show", on);
+  if (!el) return;
+  el.classList.toggle("show", !!on);
+};
+
+const hasResults = (section) => !!section && !!section.querySelector(".result");
+
+const safeShow = (section, on) =>
+  setVisible(section, !!on && hasResults(section));
+
+export const updateFilterAvailability = () => {
+  const sectionAAA = document.querySelector(".results-group--aaa");
+  const sectionAA = document.querySelector(".results-group--aa");
+  const sectionFAIL = document.querySelector(".results-group--fail");
+
+  const controlAAA = document.querySelector(".filter--aaa");
+  const controlAA = document.querySelector(".filter--aa");
+  const expandControl = document.querySelector(".filter--all");
+  const switchGroup = document.querySelector(".filters--left");
+
+  const aaaToggle = document.getElementById("aaaToggle");
+  const aaToggle = document.getElementById("aaToggle");
+  const expandToggle = document.getElementById("expandToggle");
+
+  const aaaValid = hasResults(sectionAAA);
+  const aaValid = hasResults(sectionAA);
+  const failValid = hasResults(sectionFAIL);
+
+  // Count how many result groups exist
+  const groupCount = [aaaValid, aaValid, failValid].filter(Boolean).length;
+
+  console.log("groupCount:", groupCount);
+
+  // Always hide empty sections
+  safeShow(sectionAAA, aaaValid);
+  safeShow(sectionAA, aaValid);
+  safeShow(sectionFAIL, failValid);
+
+  // If fewer than 2 groups → hide ALL filters
+  if (groupCount < 2) {
+    if (switchGroup) switchGroup.classList.remove("show");
+
+    if (aaaToggle) aaaToggle.checked = false;
+    if (aaToggle) aaToggle.checked = false;
+    if (expandToggle) expandToggle.checked = false;
+    return;
+  }
+
+  // Otherwise show filter UI
+  if (switchGroup) switchGroup.classList.add("show");
+
+  if (controlAAA) controlAAA.classList.toggle("show", aaaValid);
+  if (controlAA) controlAA.classList.toggle("show", aaValid);
+  if (expandControl) expandControl.classList.add("show");
 };
 
 export const applyResultFilters = () => {
@@ -11,45 +63,35 @@ export const applyResultFilters = () => {
   const sectionAA = document.querySelector(".results-group--aa");
   const sectionFAIL = document.querySelector(".results-group--fail");
 
-  console.log("applyResultFilters", {
-    expand: expandToggle?.checked,
-    aaa: aaaToggle?.checked,
-    aa: aaToggle?.checked,
-    sectionAAA,
-    sectionAA,
-    sectionFAIL,
-  });
+  const aaaOn = !!aaaToggle?.checked;
+  const aaOn = !!aaToggle?.checked;
 
   // Expand All ON => show all, force AA/AAA OFF
   if (expandToggle?.checked) {
     if (aaaToggle) aaaToggle.checked = false;
     if (aaToggle) aaToggle.checked = false;
 
-    setVisible(sectionAAA, true);
-    setVisible(sectionAA, true);
-    setVisible(sectionFAIL, true);
+    safeShow(sectionAAA, true);
+    safeShow(sectionAA, true);
+    safeShow(sectionFAIL, true);
     return;
   }
 
-  const aaaOn = !!aaaToggle?.checked;
-  const aaOn = !!aaToggle?.checked;
-
   // Default (none checked) => show all
   if (!aaaOn && !aaOn) {
-    setVisible(sectionAAA, true);
-    setVisible(sectionAA, true);
-    setVisible(sectionFAIL, true);
+    safeShow(sectionAAA, true);
+    safeShow(sectionAA, true);
+    safeShow(sectionFAIL, true);
     return;
   }
 
   // Only show selected pass groups; hide FAIL when filtering
-  setVisible(sectionAAA, aaaOn);
-  setVisible(sectionAA, aaOn);
-  setVisible(sectionFAIL, false);
+  safeShow(sectionAAA, aaaOn);
+  safeShow(sectionAA, aaOn);
+  safeShow(sectionFAIL, false);
 };
 
 const initResultFilterControls = () => {
-  console.log("initResultFilterControls");
   const expandToggle = document.getElementById("expandToggle");
   const aaaToggle = document.getElementById("aaaToggle");
   const aaToggle = document.getElementById("aaToggle");

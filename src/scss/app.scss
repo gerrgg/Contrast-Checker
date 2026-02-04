@@ -1,3 +1,8 @@
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
 #contrast-checker-app {
   &.show-results {
     .initial-view {
@@ -10,7 +15,6 @@
   }
 
   .introduction {
-    // padding-bottom: 64px;
     padding-top: 80px;
 
     h1 {
@@ -67,7 +71,7 @@
       flex-flow: row wrap;
 
       &--left {
-        display: flex;
+        // display: flex;
         align-items: center;
         gap: 20px;
 
