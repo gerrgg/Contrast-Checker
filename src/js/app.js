@@ -1,4 +1,4 @@
-import { bucketPairs } from "./aaa-checker";
+import { bucketPairs, whiteOrBlack } from "./aaa-checker";
 import { formatPalette } from "./share";
 import { applyResultFilters, updateFilterAvailability } from "./filters.js";
 
@@ -49,11 +49,43 @@ const ContrastChecker = () => {
   const submitButton = document.getElementById("check-contrast-button");
   const backToPaletteButton = document.getElementById("back-to-palette-button");
   const sharePaletteButton = document.getElementById("share-pallette-button");
+  const selectedColorsList = document.getElementById("selected-colors-list");
+  const toggleSelectedColorsButton = document.getElementById(
+    "toggle-selected-colors-button",
+  );
+
   const body = document.body;
+
+  const updateSelectedColorsDisplay = (colors) => {
+    selectedColorsList.innerHTML = "";
+
+    colors.forEach((color) => {
+      const swatch = document.createElement("button");
+
+      swatch.classList.add("swatch");
+      swatch.style.setProperty("--bg", color);
+      swatch.style.setProperty("--fg", whiteOrBlack(color));
+
+      swatch.textContent = color;
+
+      swatch.addEventListener("click", () => {
+        const updatedColors = colors.filter((c) => c !== color);
+        localStorage.setItem(localStorageKey, JSON.stringify(updatedColors));
+        updateSelectedColorsDisplay(updatedColors);
+        populateResults();
+        populateColorInputs();
+      });
+
+      selectedColorsList.appendChild(swatch);
+    });
+  };
 
   const loadSavedColors = () => {
     const savedColors = localStorage.getItem(localStorageKey);
     const uniqueSavedColors = [...new Set(JSON.parse(savedColors) || [])];
+
+    updateSelectedColorsDisplay(uniqueSavedColors);
+
     return uniqueSavedColors;
   };
 
@@ -124,6 +156,23 @@ const ContrastChecker = () => {
       : `${CHECK_SVG_FAIL}${label}`;
     if (!passed) td.classList.add("fail");
     return td;
+  };
+
+  const setActiveColorScheme = (pair) => {
+    body.style.setProperty("--bg", pair.b);
+    body.style.setProperty("--fg", pair.a);
+    body.style.setProperty("--color-blue", pair.a);
+    body.style.setProperty("--color-black", pair.a);
+    body.style.setProperty("--color-white", pair.b);
+    body.style.setProperty("--color-gray", pair.a);
+    body.style.setProperty("--color-gray-light", pair.a);
+
+    const activeScheme = [
+      { name: "fg", color: pair.a },
+      { name: "bg", color: pair.b },
+    ];
+
+    localStorage.setItem(activeColorScheme, JSON.stringify(activeScheme));
   };
 
   // Populate results
@@ -223,7 +272,6 @@ const ContrastChecker = () => {
         <tr>
           <td>Graphics</td>
         </tr>
-
       `;
 
         // fill rows with AA/AAA cells
@@ -237,32 +285,20 @@ const ContrastChecker = () => {
         rows[1].appendChild(makePassCell(!!pair.largeTextAA, "AA"));
         rows[1].appendChild(makePassCell(!!pair.largeTextAAA, "AAA"));
 
+        // Graphics: AA (>=3.0), AAA (>=4.5)
         rows[2].appendChild(makePassCell(!!pair.graphicsAA, "AA"));
         rows[2].appendChild(makePassCell(!!pair.graphicsAAA, "AAA"));
 
+        // assemble
         details.appendChild(ratioSpan);
         details.appendChild(colors);
         details.appendChild(table);
-
         pairDiv.appendChild(spanLabel);
         pairDiv.appendChild(spanBorder);
         pairDiv.appendChild(details);
 
         pairDiv.addEventListener("click", () => {
-          body.style.setProperty("--bg", pair.b);
-          body.style.setProperty("--fg", pair.a);
-          body.style.setProperty("--color-blue", pair.a);
-          body.style.setProperty("--color-black", pair.a);
-          body.style.setProperty("--color-white", pair.b);
-          body.style.setProperty("--color-gray", pair.a);
-          body.style.setProperty("--color-gray-light", pair.a);
-
-          const activeScheme = [
-            { name: "fg", color: pair.a },
-            { name: "bg", color: pair.b },
-          ];
-
-          localStorage.setItem(activeColorScheme, JSON.stringify(activeScheme));
+          setActiveColorScheme(pair);
         });
 
         section.appendChild(pairDiv);
@@ -285,6 +321,10 @@ const ContrastChecker = () => {
   submitButton.addEventListener("click", populateResults);
 
   backToPaletteButton.addEventListener("click", () => {
+    rootEl.classList.remove("show-results");
+  });
+
+  toggleSelectedColorsButton.addEventListener("click", () => {
     rootEl.classList.remove("show-results");
   });
 
