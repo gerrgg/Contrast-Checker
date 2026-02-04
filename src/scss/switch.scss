@@ -26,7 +26,7 @@
     .slider {
       position: absolute;
       inset: 0;
-      background: #ccc;
+      background: var(--color-gray);
       border-radius: 999px;
       cursor: pointer;
       transition: background 0.25s ease;
@@ -42,7 +42,7 @@
         transition: transform 0.25s ease;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
-        &::after {
+        svg {
           content: "";
           position: absolute;
           top: 50%;
@@ -50,8 +50,7 @@
           transform: translate(-50%, -50%);
           width: 8px;
           height: 8px;
-          background: url("data:image/svg+xml,%3Csvg width='7' height='6' viewBox='0 0 7 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.5 0.5L5.72 5.37' stroke='%23C9C9C9' stroke-miterlimit='10' stroke-linecap='round'/%3E%3Cpath d='M5.72 0.5L0.5 5.37' stroke='%23C9C9C9' stroke-miterlimit='10' stroke-linecap='round'/%3E%3C/svg%3E%0A")
-            center/contain no-repeat;
+
           border-radius: 50%;
         }
       }

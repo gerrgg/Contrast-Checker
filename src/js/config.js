@@ -13,7 +13,9 @@ export const CHECK_SVG_FAIL = `
 
 // constants
 export const defaultNumberOfInputs = 8;
+
 export const localStorageKey = "contrast-checker-colors";
+export const activeColorScheme = "contrast-checker-active-scheme";
 
 // labels
 export const Labels = [

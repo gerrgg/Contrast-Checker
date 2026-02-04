@@ -7,6 +7,7 @@ import {
   CHECK_SVG_FAIL,
   defaultNumberOfInputs,
   localStorageKey,
+  activeColorScheme,
   Labels,
   ResultsLabels,
 } from "./config.js";
@@ -68,8 +69,18 @@ const ContrastChecker = () => {
   // Reset colors
   const resetColors = () => {
     localStorage.removeItem(localStorageKey);
+    localStorage.removeItem(activeColorScheme);
     colorInputGrid.innerHTML = "";
     populateColorInputs(defaultNumberOfInputs);
+    document.body.style.setProperty("--bg", "#ffffff");
+    document.body.style.setProperty("--fg", "#000000");
+    document.body.style.setProperty("--color-blue", "#5e9ad1");
+    document.body.style.setProperty("--color-black", "#000000");
+    document.body.style.setProperty("--color-white", "#ffffff");
+    document.body.style.setProperty("--color-gray", "#666666");
+    document.body.style.setProperty("--color-gray-light", "#cccccc");
+
+    rootEl.classList.remove("show-results");
     populateResults();
   };
 
@@ -211,6 +222,15 @@ const ContrastChecker = () => {
           body.style.setProperty("--color-blue", pair.a);
           body.style.setProperty("--color-black", pair.a);
           body.style.setProperty("--color-white", pair.b);
+          body.style.setProperty("--color-gray", pair.a);
+          body.style.setProperty("--color-gray-light", pair.a);
+
+          const activeScheme = [
+            { name: "fg", color: pair.a },
+            { name: "bg", color: pair.b },
+          ];
+
+          localStorage.setItem(activeColorScheme, JSON.stringify(activeScheme));
         });
 
         section.appendChild(pairDiv);
