@@ -1,5 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === "production";
@@ -8,12 +9,12 @@ module.exports = (env, argv) => {
   return {
     entry: "./src/index.js",
     output: {
-      filename: "assets/app.js",
+      filename: isProd ? "assets/app.[contenthash:8].js" : "assets/app.js",
       path: path.resolve(__dirname, "dist"),
-      publicPath: base, // or "auto"
+      publicPath: base,
       clean: { keep: /index\.html/ },
     },
-    devtool: isProd ? "source-map" : "eval-source-map",
+
     module: {
       rules: [
         {
@@ -41,24 +42,34 @@ module.exports = (env, argv) => {
         {
           test: /\.(woff2?|ttf|otf|eot)$/i,
           type: "asset/resource",
-          generator: {
-            filename: "assets/fonts/[hash][ext][query]",
-          },
+          generator: { filename: "assets/fonts/[contenthash:8][ext]" },
         },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           type: "asset/resource",
-          generator: {
-            filename: "assets/img/[hash][ext][query]",
-          },
+          generator: { filename: "assets/img/[contenthash:8][ext]" },
         },
       ],
     },
+
     plugins: [
       new MiniCssExtractPlugin({
-        filename: "assets/app.css",
+        filename: isProd ? "assets/app.[contenthash:8].css" : "assets/app.css",
+      }),
+
+      new HtmlWebpackPlugin({
+        template: "./src/index.html",
+        filename: "index.html",
       }),
     ],
+
+    optimization: isProd
+      ? {
+          runtimeChunk: "single",
+          splitChunks: { chunks: "all" },
+        }
+      : undefined,
+
     devServer: {
       static: { directory: path.resolve(__dirname, "dist") },
       hot: true,

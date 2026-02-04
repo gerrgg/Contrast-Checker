@@ -12,6 +12,35 @@ import {
   ResultsLabels,
 } from "./config.js";
 
+const setupColoris = () => {
+  if (!window.Coloris) return;
+
+  Coloris({
+    el: "#color-picker-grid input[data-coloris]",
+    theme: "default",
+    themeMode: "auto",
+    alpha: false,
+    format: "hex",
+    swatches: [
+      "#ffffff",
+      "#111010",
+      "#5E9AD1",
+      "#EDA124",
+      "#50ED24",
+      "#ED24C8",
+    ],
+    focusInput: false,
+
+    onChange: (color, inputEl) => {
+      const allColors = Array.from(
+        document.querySelectorAll("#color-picker-grid input[data-coloris]"),
+      ).map((input) => input.value);
+
+      localStorage.setItem(localStorageKey, JSON.stringify(allColors));
+    },
+  });
+};
+
 const ContrastChecker = () => {
   // DOM elements
   const rootEl = document.getElementById("contrast-checker-app");
@@ -61,7 +90,7 @@ const ContrastChecker = () => {
         e.target.select();
       });
 
-      Coloris({ el: input });
+      // Coloris({ el: input });
       colorInputGrid.appendChild(fieldGroup);
     }
   };
@@ -70,8 +99,11 @@ const ContrastChecker = () => {
   const resetColors = () => {
     localStorage.removeItem(localStorageKey);
     localStorage.removeItem(activeColorScheme);
+
     colorInputGrid.innerHTML = "";
     populateColorInputs(defaultNumberOfInputs);
+    setupColoris();
+
     document.body.style.setProperty("--bg", "#ffffff");
     document.body.style.setProperty("--fg", "#000000");
     document.body.style.setProperty("--color-blue", "#5e9ad1");
@@ -244,18 +276,9 @@ const ContrastChecker = () => {
     applyResultFilters();
   };
 
-  // Coloris onChange event
-  Coloris({
-    onChange: (color, inputEl) => {
-      const allColors = Array.from(
-        document.querySelectorAll("#color-picker-grid input"),
-      ).map((input) => input.value);
-      localStorage.setItem(localStorageKey, JSON.stringify(allColors));
-    },
-  });
-
   // Initial population
   populateColorInputs(defaultNumberOfInputs);
+  setupColoris();
 
   // events
   clearButton.addEventListener("click", resetColors);
@@ -275,15 +298,6 @@ const ContrastChecker = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   ContrastChecker();
-});
-
-Coloris({
-  theme: "default",
-  themeMode: "auto",
-  alpha: false,
-  format: "hex",
-  swatches: ["#ffffff", "#111010", "#5E9AD1", "#EDA124", "#50ED24", "#ED24C8"],
-  focusInput: false,
 });
 
 document.addEventListener("click", (e) => {
