@@ -4,14 +4,23 @@
   top: 50%;
   left: 0;
   background: #e4e4e4;
-
+  transform: translateY(-50%);
   padding-bottom: 20px;
   border-radius: 0 5px 5px 0;
+
+  @media (max-width: 1200px) {
+    top: unset;
+    bottom: 0;
+    transform: unset;
+    width: 100%;
+    display: flex;
+    padding: 0.25rem 0;
+  }
 
   #toggle-selected-colors-button {
     width: 60px;
     background: #5e9ad1;
-    height: 41px;
+    height: 42px;
     appearance: none;
     border: 0;
     position: relative;
@@ -21,12 +30,28 @@
     border: 1px solid #5e9ad1;
     margin-bottom: -20px;
 
+    @media (max-width: 1200px) {
+      margin: 0;
+      width: 42px;
+      top: 0;
+
+      &::after {
+        display: none;
+      }
+    }
+
     svg {
       position: absolute;
       right: -10px;
       z-index: 1;
       top: calc(50% + 1px);
       transform: translate(-50%, -50%);
+
+      @media (max-width: 1200px) {
+        inset: 0;
+        margin: auto;
+        transform: unset;
+      }
     }
 
     &::after {
@@ -49,14 +74,31 @@
     margin-bottom: 8px;
     text-transform: unset;
     color: #000000;
+
+    @media (max-width: 1200px) {
+      margin: 0;
+      align-self: center;
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    @media (max-width: 800px) {
+      display: none;
+    }
   }
 
   #selected-colors-list {
     display: flex;
     gap: 10px;
     padding: 0 18px;
-
     flex-direction: column;
+
+    @media (max-width: 1200px) {
+      flex-direction: row;
+      padding: 0 8px;
+      gap: 8px;
+      overflow-x: auto;
+    }
 
     .swatch {
       height: 42px;
@@ -71,9 +113,9 @@
       font: 400 7px/10px var(--font-cir);
       text-transform: uppercase;
       position: relative;
+      flex-shrink: 0;
 
       &::after {
-        // x button
         content: "";
         background: url("data:image/svg+xml,%3Csvg width='7' height='6' viewBox='0 0 7 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.5 0.5L5.72 5.37' stroke='%23C9C9C9' stroke-miterlimit='10' stroke-linecap='round'/%3E%3Cpath d='M5.72 0.5L0.5 5.37' stroke='%23C9C9C9' stroke-miterlimit='10' stroke-linecap='round'/%3E%3C/svg%3E%0A")
           center/contain no-repeat;

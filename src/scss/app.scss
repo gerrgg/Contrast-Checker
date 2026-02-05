@@ -4,6 +4,7 @@ body {
 }
 
 #contrast-checker-app {
+  overflow: hidden;
   &.show-results {
     .initial-view {
       display: none;
@@ -16,6 +17,10 @@ body {
 
   .introduction {
     padding-top: 80px;
+
+    @media (max-width: 1200px) {
+      padding-top: 40px;
+    }
 
     h1 {
       position: relative;
@@ -37,10 +42,17 @@ body {
     display: block;
     margin-top: 64px;
 
+    @media (max-width: 1200px) {
+      margin-top: 40px;
+    }
+
     .context {
       max-width: 512px;
       margin-bottom: 64px;
 
+      @media (max-width: 1200px) {
+        margin-bottom: 40px;
+      }
       h2 {
         margin-bottom: 20px;
       }
@@ -51,10 +63,19 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
   }
 
   #submitted-view {
     display: none;
+
+    h3 {
+      margin-bottom: 10px;
+    }
 
     .switch-group {
       display: flex;
@@ -64,9 +85,13 @@ body {
 
     margin-top: 64px;
 
+    @media (max-width: 1200px) {
+      margin-top: 40px;
+    }
+
     .filters {
+      margin-top: 0;
       display: flex;
-      margin-top: 15px;
       justify-content: space-between;
       flex-flow: row wrap;
 
@@ -74,9 +99,14 @@ body {
         // display: flex;
         align-items: center;
         gap: 20px;
+        flex-flow: row wrap;
 
         label {
           font: 700 14px/18px var(--font-cir);
+        }
+
+        @media (max-width: 800px) {
+          gap: 10px;
         }
       }
 
