@@ -7,6 +7,9 @@
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
     "deploy": "npm run build && npm run sync",
+    "buildplugin": "npm run build && cp -r dist/* contrast-checker-plugin/dist/",
+    "packageplugin": "rm -rf contrast-checker-plugin.zip && zip -r contrast-checker-plugin.zip contrast-checker-plugin",
+    "buildPackagePlugin": "npm run buildplugin && npm run packageplugin",
     "sync": "rsync -avz ~/contrast-checker/dist/* floodlight2024web@35.83.85.79:/home/floodlight2024web/public_html/contrast-checker"
   },
   "keywords": [],

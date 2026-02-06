@@ -55,3 +55,35 @@ Contributions welcome. Please open issues or submit pull requests for bugs and i
 ## License
 
 Specify a license (e.g., MIT) in a `LICENSE` file if you intend to open-source this project.
+
+## Plugin & Build Scripts
+
+This project includes additional npm scripts to build and package a plugin distribution of the app and to deploy the built files.
+
+- `npm run dev` — start webpack dev server for local development.
+- `npm run build` — create a production build into `dist/`.
+- `npm run watch` — run webpack in watch mode.
+- `npm run buildplugin` — runs `npm run build` then copies built files into `contrast-checker-plugin/dist/`.
+- `npm run packageplugin` — packages the `contrast-checker-plugin` directory into `contrast-checker-plugin.zip`.
+- `npm run buildPackagePlugin` — runs `buildplugin` then `packageplugin` (build + package).
+- `npm run deploy` — runs `npm run build` then `npm run sync` (deploys via rsync).
+- `npm run sync` — rsync command configured to upload `dist/*` to a remote host (see `package.json` for the target).
+
+Example plugin workflow:
+
+1. Build and copy files for the plugin:
+
+npm run buildplugin
+
+2. Create a distributable zip of the plugin:
+
+npm run packageplugin
+
+3. Or run both steps with:
+
+npm run buildPackagePlugin
+
+Notes:
+
+- The `sync` script uses `rsync` to upload files to a remote server; update the host/path in `package.json` before running `npm run sync` if you need a different target.
+- The plugin output is placed into `contrast-checker-plugin/dist/` by the `buildplugin` script; ensure that directory exists or that downstream tooling expects it.

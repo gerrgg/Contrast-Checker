@@ -4,59 +4,60 @@
     sans-serif;
   --font-chap: "Chap", Georgia, serif;
 }
+#contrast-checker-app {
+  h1 {
+    font-weight: 400;
+    font-family: var(--font-cir);
+    font-size: 125px;
+    line-height: 1;
+    margin: 0;
 
-h1 {
-  font-weight: 400;
-  font-family: var(--font-cir);
-  font-size: 125px;
-  line-height: 1;
-  margin: 0;
+    @media (max-width: 800px) {
+      font-size: 80px;
+    }
 
-  @media (max-width: 800px) {
-    font-size: 80px;
+    @media (max-width: 450px) {
+      font-size: 60px;
+    }
   }
 
-  @media (max-width: 450px) {
-    font-size: 60px;
+  h2 {
+    font-weight: 600;
+    font-family: var(--font-chap);
+    font-size: 32px;
+    line-height: 1.1;
+
+    @media (max-width: 800px) {
+      font-size: 24px;
+    }
   }
-}
 
-h2 {
-  font-weight: 600;
-  font-family: var(--font-chap);
-  font-size: 32px;
-  line-height: 1.1;
+  h3 {
+    font-weight: 400;
+    font-family: var(--font-chap);
+    font-size: 32px;
+    line-height: 1.1;
 
-  @media (max-width: 800px) {
-    font-size: 24px;
+    @media (max-width: 800px) {
+      font-size: 24px;
+    }
   }
-}
 
-h3 {
-  font-weight: 400;
-  font-family: var(--font-chap);
-  font-size: 32px;
-  line-height: 1.1;
-
-  @media (max-width: 800px) {
-    font-size: 24px;
+  h4 {
+    font-weight: 700;
+    font-family: var(--font-cir);
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
-}
 
-h4 {
-  font-weight: 700;
-  font-family: var(--font-cir);
-  font-size: 14px;
-  line-height: 18px;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-p {
-  font-family: var(--font-cir);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  margin: 0;
+  p {
+    font-family: var(--font-cir);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+  }
 }

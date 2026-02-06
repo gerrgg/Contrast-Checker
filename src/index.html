@@ -11,7 +11,10 @@
     <title>Contrast Checker</title>
   </head>
 
-  <body style="--bg: #ffffff; --fg: #000000; --color-blue: #5e9ad1">
+  <body
+    class="page-template-template-contrast-checker"
+    style="--bg: #ffffff; --fg: #000000; --color-blue: #5e9ad1"
+  >
     <div id="contrast-checker-app">
       <div class="introduction wrap">
         <h1>Happy Eyes</h1>
@@ -76,11 +79,11 @@
                 </label>
               </div>
 
-              <!-- aaa -->
-              <div class="button-switch filter--aaa">
-                <span class="switch-label">AAA</span>
+              <!-- aa -->
+              <div class="button-switch filter--aa">
+                <span class="switch-label">AA</span>
                 <label class="switch">
-                  <input type="checkbox" id="aaaToggle" />
+                  <input type="checkbox" id="aaToggle" />
                   <span class="slider"
                     ><i
                       ><svg
@@ -107,11 +110,11 @@
                 </label>
               </div>
 
-              <!-- aa -->
-              <div class="button-switch filter--aa">
-                <span class="switch-label">AA</span>
+              <!-- aaa -->
+              <div class="button-switch filter--aaa">
+                <span class="switch-label">AAA</span>
                 <label class="switch">
-                  <input type="checkbox" id="aaToggle" />
+                  <input type="checkbox" id="aaaToggle" />
                   <span class="slider"
                     ><i
                       ><svg
@@ -219,8 +222,12 @@
 
   <script>
     const activeColorScheme = "contrast-checker-active-scheme";
+    const activePage = document.querySelector(
+      "body.page-template-template-contrast-checker",
+    );
     const savedScheme = localStorage.getItem(activeColorScheme);
-    if (savedScheme) {
+
+    if (activePage && savedScheme) {
       const scheme = JSON.parse(savedScheme);
       document.body.style.setProperty("--fg", scheme[0].color);
       document.body.style.setProperty("--bg", scheme[1].color);

@@ -1,49 +1,51 @@
-input[data-coloris] {
-  width: 100%;
-}
-
-.field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  label {
-    font-family: var(--font-cir);
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 25px;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+#contrast-checker-app {
+  input[data-coloris] {
+    width: 100%;
   }
 
-  input {
-    font-family: var(--font-cir);
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 25px;
-    color: #666666;
-    border: 1px solid #666666;
-    height: 30px;
-    padding: 8px;
-    border-radius: 2px;
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-    appearance: none;
-    outline: none;
-  }
-
-  .clr-field {
-    button {
-      height: 26px;
-      width: 26px;
-      right: 2px;
-      border-radius: 2px;
-      border: 1px solid #666666;
+    label {
+      font-family: var(--font-cir);
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 25px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
-  }
 
-  #searchInput {
-    padding-right: 36px;
-    color: var(--color-black);
-    border-radius: 30px;
+    input {
+      font-family: var(--font-cir);
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 25px;
+      color: #666666;
+      border: 1px solid #666666;
+      height: 30px;
+      padding: 8px;
+      border-radius: 2px;
+
+      appearance: none;
+      outline: none;
+    }
+
+    .clr-field {
+      button {
+        height: 26px;
+        width: 26px;
+        right: 2px;
+        border-radius: 2px;
+        border: 1px solid #666666;
+      }
+    }
+
+    #searchInput {
+      padding-right: 36px;
+      color: var(--color-black);
+      border-radius: 30px;
+    }
   }
 }
